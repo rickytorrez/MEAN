@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>JS DOM 1</title>
+    </head>
+    <body>
+        <h1>Students</h1>
+        <ul id="main">
+        </ul> 
+    <script>
+        function appendList(array, id){
+            var i = 0;
+            while(i<array.length){
+                var x = document.createElement("li");                   /* Type of tag */
+                var y = document.createTextNode(array[i]);              /* Iterates through array to add names */
+                x.appendChild(y);                           
+                document.getElementById("main").appendChild(x);         /* Adds names */
+                i++;
+            }
+        };
+        let students = ["William", "Kap", "Sami", "John", "Eduardo"];
+        let target_id = "main";
+        appendList(students, target_id);
+    </script>   
+    </body>
+</html>
