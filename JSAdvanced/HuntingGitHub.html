@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <script type="text/javascript" src= 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hunting Git Hub</title>
+</head>
+    <body>
+        <button type="button" id="someButton" name="button">Show me the user!</button>
+        <div id="target">
+            
+        </div>
+        <script>
+            var button = document.getElementById("someButton")
+                button.addEventListener("click", function(){
+                    $.get("https://api.github.com/users/rickytorrez", whatToDoOnClick);
+                });
+                function whatToDoOnClick(data) {
+                let newName = document.createElement('h2');
+                newName.innerHTML = data.login;
+                document.getElementById('target').appendChild(newName);
+                }
+        </script>
+    </body>
+</html>
