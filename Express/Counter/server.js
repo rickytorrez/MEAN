@@ -1,10 +1,9 @@
 /******* BASIC ROUTING ******/
 var express     = require("express");
 var path        = require("path");
-var session     = require("express-session");
+var bodyParser  = require("body-parser");
 
 var app         = express();
-var bodyParser  = require("body-parser");
 
 var session     = require("express-session");
 app.use(session({ secret: "eduardobaik" }));
