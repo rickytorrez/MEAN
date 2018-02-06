@@ -22,6 +22,12 @@ function Ninja(name, health){
         console.log("I had a protein shake, my health is at " + this.health + "!!")
         return this;
     }
+
+    this.increaseSpeed = function(){
+        speed += 10;
+        console.log("Increased my speed to " + speed + "!")
+        return this;
+    }
 }
 
 var Wil = new Ninja("Wil", 200)
@@ -30,5 +36,6 @@ Wil.sayName()
 Wil.drinkShake()
 Kap.sayName()
 Kap.showStats()
+// Kap.increaseSpeed()
 
 // console.log(Wil);
