@@ -14,5 +14,18 @@
             <input type="text" name="age"><br>
             <input type="submit" value="Submit!"><br>
         </form>
+        <h3>Users:</h3>
+        <table border="1px">
+            <tr>
+                <td>Name:</td>
+                <td>Age:</td>
+            </tr>
+            <% for(let x in users){ %>
+            <tr>
+                <td><%= users[x].name %></td>
+                <td><%= users[x].age %></td>
+            </tr>
+            <% } %>
+        </table>
     </body>  
 </html>
