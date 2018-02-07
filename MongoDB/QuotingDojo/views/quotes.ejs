@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quoting Dojo</title>
+</head>
+    <body>
+        <h2>Have yourself some wisdom:</h2>
+        <table border="1px">
+            <tr>
+                <td>Quote:</td>
+                <td>By:</td>
+            </tr>
+            <% for(let x in quotes){ %>
+            <tr>
+                <td><%= quotes[x].quote %></td>
+                <td><%= quotes[x].name %></td>
+            </tr>
+            <% } %>
+        </table>
+        <hr>
+        <a href="/"><button>Feeling Clever?</button></a>
+    </body>
+</html>
