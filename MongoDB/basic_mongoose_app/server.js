@@ -42,7 +42,7 @@ app.post('/users', function(req, res) {
     var user = new User({name: req.body.name, age: req.body.age});          // create a new User with the name and age corresponding to those from req.body
     user.save(function(err){                                                // Try to save that new user to the database (this is the method that actually inserts into the db) and run a callback function with an error (if any) from the operation.
         if(err){                                                            // if there is an error console.log that something went wrong!  
-            res.redirect('/', {errors: user.errors})
+            // res.redirect('/', {errors: user.errors})
             console.log("come on bro, fix it up!");
         } else {                                                            // else console.log that we did well and then redirect to the root route
             console.log("nailed it!");
