@@ -1,0 +1,120 @@
+/***************************     MONGODB  NOTES     **************************************/
+/*****************************************************************************************/
+
+Tables are equivalent to Collections
+A document is the equivalent to a row
+
+> show dbs                              // Shows databases
+admin  0.000GB
+local  0.000GB
+> use test_app                          // Creates a database
+switched to db test_app
+> show collections                      // Shows Tables inside the database
+> db.createCollection('users')          // Creates a New Table
+{ "ok" : 1 }
+> db.users.drop()                       // Drops Tables inside of a database
+true
+> db.users.insert({name: "Ricardo"})    // Insets a document(unit of data) inside the database
+WriteResult({ "nInserted" : 1 })
+
+/***************************     Show all databases     **********************************/
+Show all databases available on our current MongoDB server	
+Example:
+show dbs
+
+/***************************     Show current database     *******************************/
+Show current database selected	
+Example:
+db
+
+/***************************     Change to another database     **************************/
+Change to another database
+Note: If the database you're trying to switch to does not exist, 
+Mongo shell will create a new database and switch to it.	
+Pattern:
+use DB_NAME
+
+Example:
+use message_board_db
+
+/***************************     Delete database     *************************************/
+Delete database
+Note: db.dropDatabase() will delete the current database in use.
+
+Example:
+use message_board_db
+db.dropDatabase()
+
+/***************************     View all collections in a MongoDB     *******************/
+View all collections in a MongoDB	
+show collections
+
+/***************************     Create a new collection in the current database     *****/
+Create a new collection in the current database	
+Pattern:
+db.createCollection("COLLECTION_NAME")
+
+Example:
+db.createCollection("ninjas")
+
+/***************************     Destroy a collection     ********************************/
+Destroy a collection 	
+Pattern:
+db.COLLECTION_NAME.drop()
+
+Example:
+db.ninjas.drop()
+
+/***************************     Insert Data     *****************************************/
+Insert data into a collection
+> db.ninjas.insert({name: 'Trey', status:'hungry', belt:'black'})
+
+/***************************     Finds objects inside DB     *****************************/
+> db.ninjas.find()
+{ "_id" : ObjectId("5a79ee8c6e573e6e507a6d4f"), "name" : "Wil" }
+{ "_id" : ObjectId("5a79f13e6e573e6e507a6d50"), "name" : "Kap", "status" : "wise" }
+
+/***************************     Sorts objects inside DB     *****************************/
+> db.ninjas.find().pretty()
+{ "_id" : ObjectId("5a79ee8c6e573e6e507a6d4f"), "name" : "Wil" }
+{
+	"_id" : ObjectId("5a79f13e6e573e6e507a6d50"),
+	"name" : "Kap",
+	"status" : "wise"
+}
+
+/***************************     Finds object inside DB     *****************************/
+> db.ninjas.find({name: "Wil"}).pretty()
+{ "_id" : ObjectId("5a79ee8c6e573e6e507a6d4f"), "name" : "Wil" }
+
+/***************************     Finds object inside DB by ID     ***********************/
+> db.ninjas.find({_id: ObjectId("5a79f13e6e573e6e507a6d50")})
+{ "_id" : ObjectId("5a79f13e6e573e6e507a6d50"), "name" : "Kap", "status" : "wise" }
+
+/***************************     Remove object inside DB    *****************************/
+> db.ninjas.remove({name: "Wil"})
+WriteResult({ "nRemoved" : 1 })
+
+/***********     Remove one object out of two with the same name inside DB    ***********/
+> db.ninjas.remove({name: "Wil"}, true)
+WriteResult({ "nRemoved" : 1 })
+
+/******     Update a database entry by adding a new field, takes 2 arguments    *********/
+> db.ninjas.update({name: 'Trey'}, {location: "DC"})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+DELETES ALL PREVIOUS DATA WHEN UPDATED EXCEPT FOR THE OBJECT ID
+
+/********************************     UPDATE OPERATOR    ********************************/
+> db.ninjas.update({name: 'Trey'}, {$set: {location: "DC"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.ninjas.find().pretty()
+{
+	"_id" : ObjectId("5a7a05b66e573e6e507a6d56"),
+	"name" : "Trey",
+	"status" : "hungry",
+	"belt" : "black",
+	"location" : "DC"
+}
+>
