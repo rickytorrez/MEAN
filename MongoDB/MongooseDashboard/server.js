@@ -79,6 +79,7 @@ app.get('/delete/:id', function(req, res) {
         res.redirect('/');
     })
 })
+// John was here
 
 /******* PORT LISTEN ******/
 app.listen(8000, function() {
