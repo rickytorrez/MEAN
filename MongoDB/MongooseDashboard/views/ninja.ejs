@@ -1,0 +1,31 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+</head>
+    <body>
+        <h3>Ninjas Dashboard</h3>
+        <h4>These are the ninjas at the DC Dojo:</h4>
+        <table border="1px">
+            <tr>
+                <td>First Name:</td>
+                <td>Last Name:</td>
+                <td>Age:</td>
+                <td>Actions:</td>
+            </tr>
+            <% for(let x in ninjas){ %>
+            <tr>    
+                <td><%= ninjas[x].firstName %></td>
+                <td><%= ninjas[x].lastName %></td>
+                <td><%= ninjas[x].age %></td>
+                <td><a href="/edit/<%= ninjas[x].id %>"><button>Edit</button></a> | <a href="/delete/<%= ninjas[x].id %>"><button>Delete</button></a></td>
+            </tr>
+            <% } %>
+        </table>
+        <br>
+        <a href="/"><button>Add a Ninja!</button></a>
+        
+    </body>
+</html>
