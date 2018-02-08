@@ -27,7 +27,6 @@ app.set('views', path.join(__dirname, "./views"));
 app.set('view engine', 'ejs');
 
 /******* ROUTE AND FUNCTION ******/
-
 /****** HOME ROUTE ******/
 app.get('/', function(req, res) {
     User.find({}, function(err,users){                                      // Find users
