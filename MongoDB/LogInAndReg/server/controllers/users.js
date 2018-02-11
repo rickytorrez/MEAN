@@ -3,6 +3,15 @@ const bcrypt    = require('bcryptjs');
 const User      = mongoose.model('User');
 
 class UsersController {
+    homepage( req, res ){
+        return res.render('index');
+    }
+    dashboard( req, res ){
+        if(!req.session.user_id){
+            return res.redirect('/');  
+        }
+        res.render('dashboard', { session: req.session });
+    }
     create( req, res ){
         req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
         User.create(req.body, (err, user) => {
@@ -10,7 +19,8 @@ class UsersController {
                 console.log(err);
             }
             req.session.user_id = user._id;
-            return res.json(user);
+            // return res.json(user); //<=== returns json object
+            return res.redirect('/dashboard');
         })
     }
     authenticate( req, res ){
@@ -23,7 +33,9 @@ class UsersController {
             }
             if( user && user.authenticate(req.body.password)){
                 req.session.user_id = user._id;
-                return res.json(user);
+                // return res.json(user);
+                return res.redirect('/dashboard');
+
             }
             return res.json({
                 'errors': "invalid credentials"
@@ -47,9 +59,10 @@ class UsersController {
     logout( req, res ){
         delete req.session.user_id;
         // if using Angular
-        return res.json({
-            'status': true
-        })
+        // return res.json({
+        //     'status': true
+        // })
+        return res.redirect('/');
 
     }
 }
