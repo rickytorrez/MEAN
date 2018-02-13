@@ -4,6 +4,42 @@ const User      = mongoose.model('User');
 const Option    = mongoose.model('Option');
 
 class PollsController {
+    index(req, res) {
+        Poll.find({}).populate({ path: 'user', model: 'User' }).exec((err, polls) => {
+            if(err){
+                return res.json(err);
+            }
+            return res.json(polls);
+        })
+    }
+
+    delete(req, res){
+        console.log("holaaaaaaa");
+        Poll.findById(req.params.id, (err, poll) =>{
+            if(err){
+                return res.json(err);
+            }
+            if (!poll){
+                return res.json({status: "Poll not found"});
+            }
+            else if(poll.user == req.session.user_id){
+                poll.remove();
+                return res.json({status: true});
+            } else {
+                return res.json({status: "User not authorized"});
+            }
+        })
+    }
+
+    show(req, res) {
+        Poll.findById(req.params.id).populate({ path: 'options', model: 'Option'}).exec((err, poll) => {
+            if(err){
+                return res.json(err);
+            }
+            return res.json(poll);
+        })
+    }
+
     create(req, res) {
         Poll.create({ question: req.body.question, user: req.session.user_id }, (err, poll) => {
             if(err){
