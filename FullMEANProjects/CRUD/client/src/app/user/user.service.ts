@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
 import { User } from './user'
 import "rxjs";
+// import "rxjs/Rx";
 import { Observable } from "rxjs";
 import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
+// import 'rxjs/operator/delay';
+// import 'rxjs/operator/mergeMap';
+// import 'rxjs/operator/switchMap';
 
 @Injectable()
 export class UserService {
