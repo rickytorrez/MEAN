@@ -1,0 +1,16 @@
+<h3>Dashboard</h3>
+<div>
+  <button (click)="logout()" class="float-right">Logout</button>
+  <button [routerLink]= "['/create']" class="float-right">Add a new poll</button>
+</div>
+
+<p>
+    {{currentUser.name}}
+</p>
+
+
+
+
+<p>
+  {{ polls | json}}
+</p>
