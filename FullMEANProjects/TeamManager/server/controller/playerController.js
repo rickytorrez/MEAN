@@ -40,6 +40,15 @@ class PlayerController {
         })
     }
 
+    showOne(req, res){
+        Player.findById(req.params.id, (err, player) => {
+            if(err){
+                return res.json(err);
+            }
+            return res.json(player);
+        })
+    }
+
 }
 
 module.exports = new PlayerController()
