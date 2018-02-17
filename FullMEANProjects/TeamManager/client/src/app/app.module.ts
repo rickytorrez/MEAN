@@ -10,6 +10,9 @@ import { AppComponent } from './app.component';
 
 import { PlayerComponent } from './player/player.component';
 import { AddPlayerComponent } from './player/add-player/add-player.component';
+import { ListplayerComponent } from './player/listplayer/listplayer.component';
+import { GamesComponent } from './games/games.component';
+import { PlayerstatusComponent } from './games/playerstatus/playerstatus.component';
 
 
 @NgModule({
@@ -17,6 +20,9 @@ import { AddPlayerComponent } from './player/add-player/add-player.component';
     AppComponent,
     PlayerComponent,
     AddPlayerComponent,
+    ListplayerComponent,
+    GamesComponent,
+    PlayerstatusComponent,
     
   ],
   imports: [

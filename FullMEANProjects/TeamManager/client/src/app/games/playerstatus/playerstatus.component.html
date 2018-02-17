@@ -1,0 +1,15 @@
+<h3>Player Status</h3>
+<table border="1px">
+  <tr>
+    <th>Player Name</th>
+    <th>Player Status</th>
+  </tr>
+  <tr  *ngFor="let player of players">
+    <td>{{ player.name }}</td>
+    <td>
+      <button class ="green{{ player.status }}" (click)="changeStatus(player._id, 1)">Playing</button>
+      <button class ="red{{ player.status }}" (click)="changeStatus(player._id, -1)">Not Playing</button>
+      <button class ="yellow{{ player.status }}" (click)="changeStatus(player._id, 0)">Undecided</button>
+    </td>
+  </tr>
+</table>

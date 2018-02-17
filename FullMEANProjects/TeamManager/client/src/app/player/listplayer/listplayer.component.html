@@ -1,0 +1,22 @@
+<h3>Roster</h3>
+<table border="1px">
+  <tr>
+    <th>Player Name</th>
+    <th>Position</th>
+    <th>CRUD</th>
+  </tr>
+  <tr *ngFor="let player of players">
+    <td >
+      {{ player.name }}
+    </td>
+    <td>
+      {{ player.position }}
+    </td>
+    <td>
+      <button (click)="deletePlayer(player._id)">Delete</button>
+    </td>
+  </tr>
+
+</table>
+
+<h1 ></h1>

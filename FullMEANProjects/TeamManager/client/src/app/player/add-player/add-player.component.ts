@@ -29,5 +29,6 @@ export class AddPlayerComponent implements OnInit {
       player => player.json(),
       error => console.log(error)
     )
+    location.reload()
   }
 }

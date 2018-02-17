@@ -19,4 +19,14 @@ export class PlayerService {
   all(){
     return this._http.get("/players")
   }
+
+  delete(id: string){
+    return this._http.delete("/players/remove/"+ id)
+  }
+
+  update(player){
+    console.log("status update @parent component ");
+    return this._http.put("/players/" + player._id, player)
+//   return this._http.put("/players/"+id);
+  }
 }
