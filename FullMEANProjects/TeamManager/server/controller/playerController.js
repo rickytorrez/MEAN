@@ -7,8 +7,10 @@ class PlayerController {
 
         player.save((err) => {
             if(err){
+                console.log("error in player controller" + err);
                 return res.json(err);
             }
+                console.log("success in player controller");
             return res.json(player);
         })
     }

@@ -1,0 +1,9 @@
+<div>
+  <form (submit)="createPlayer()">
+      <label>Player Name:</label><br>
+      <input type="text" name="player.name" [(ngModel)]="player.name"> <br><!-- ngModel maps value of field to whatever value you create in the service -->
+      <label>Position:</label><br>
+      <input type="text" name="player.position" [(ngModel)]="player.position"><br>
+      <input type="submit" value="Create!">
+  </form>
+</div>

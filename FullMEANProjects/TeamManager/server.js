@@ -4,7 +4,7 @@ let session         = require("express-session");
 let app             = express();
 
 /********** STATIC FOLDER **********/
-// app.use(express.static(__dirname + '/client/dist'));
+app.use(express.static(__dirname + '/client/dist'));
 
 /********** BODY PARSER **********/
 let bodyParser      = require('body-parser');

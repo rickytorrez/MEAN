@@ -8,4 +8,7 @@ module.exports  = function(app){
     app.put('/players/:id', Player.update);
     app.delete('/players/remove/:id', Player.destroy);
 
+    app.all('*', (req, res, next) => {
+        res.sendFile(path.resolve('./client/dist/index.html'));
+    })
 }
