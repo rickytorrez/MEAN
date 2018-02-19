@@ -1,0 +1,8 @@
+<ul *ngFor="let note of notes">
+
+  <fieldset>
+    <h6>Noted on: {{ note.createdAt | date:'medium' }}</h6> 
+    <p>{{ note.content }}</p>
+  </fieldset>
+  
+</ul>
