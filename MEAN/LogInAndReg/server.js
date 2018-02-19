@@ -4,8 +4,8 @@ const session       = require('express-session');
 const port          = 8000;
 const app           = express();
 
-app.use(express.static(__dirname + '/client/dist'));
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/client/dist'));
 app.use(session({
     secret: 'eduardobaik',
     resave: false,

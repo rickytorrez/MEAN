@@ -21,8 +21,19 @@ let UserSchema = new mongoose.Schema({
     }
 }, {timestamps: true});
 
-UserSchema.methods.authenticate = function(password){
-    return bcrypt.compareSync(password, this.password);
+UserSchema.methods.hash = function(password){
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10))
 }
+
+UserSchema.pre("save", function(done){
+    this.password = this.hash(this.password);
+    done();
+})
+
+UserSchema.methods.authenticate = function(password_form, password){
+    return bcrypt.compareSync(password_form, password);
+}
+
+
 
 mongoose.model('User', UserSchema);

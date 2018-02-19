@@ -1,7 +1,7 @@
 const mongoose      = require ('mongoose');
 const fs            = require ('fs');
 
-mongoose.connect('mongodb://localhost/angLogInReg');
+mongoose.connect('mongodb://localhost/dyingSlowly1');
 mongoose.Promise    = global.Promise;
 
 const models_path   = __dirname +'/../models';

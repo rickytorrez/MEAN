@@ -10,7 +10,7 @@ import { User } from '../../server/models/user';
 })
 export class DashboardComponent implements OnInit {
 
-  currentUser: User;
+  currentUser: User = null;
 
   constructor(
     private _userService: UserService,
@@ -18,13 +18,41 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._userService.session((res) => {
-      if (res.status === false){
-        this._router.navigateByUrl('/');
-      } else {
-        this.currentUser = res;
+    this.getUserInSession()
+    console.log(this.currentUser)
+  }
+
+  getUserInSession(){
+    this._userService.session().subscribe((res)=>{
+      this.currentUser = res.json();
+      if(this.currentUser._id == null){
+        this._router.navigateByUrl('/')
       }
-    });
+    })
+  }
+
+  logOut(){
+    this._userService.logout().subscribe(res => {this.currentUser = null})
+    this._router.navigateByUrl("/");
   }
 
 }
+  
+//   this._userService.session((res) =>{
+//     if(res.errors){
+//       this._router.navigate(["/"]);
+//     }else{
+//       this.currentUser = res;
+//     }
+//   })
+
+// }
+
+
+    // this._userService.session((res) => {
+    //   if (res.status === false){
+    //     this._router.navigateByUrl('/');
+    //   } else {
+    //     this.currentUser = res;
+    //   }
+    // });

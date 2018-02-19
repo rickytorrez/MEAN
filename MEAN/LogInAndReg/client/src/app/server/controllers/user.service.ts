@@ -21,17 +21,11 @@ export class UserService {
     );
   }
 
-  session(callback){
-    this._http.get('/session').subscribe(
-      res => callback(res.json()),
-      err => console.log(err)
-    );
+  session(){
+    return this._http.get('/session');
   }
 
-  logout(callback){
-    this._http.delete('/users').subscribe(
-      res => callback(res.json()),
-      err => console.log(err)
-    );
+  logout(){
+    return this._http.delete('/users');
   }
 }

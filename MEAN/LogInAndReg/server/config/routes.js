@@ -9,6 +9,6 @@ module.exports = function(app){
     app.get     ('/users',      Users.show);
 
     app.all('*', ( req,res, next ) =>{
-        res.sendFile(path.resolve('./client/dist.index.html'));
+        res.sendFile(path.resolve('./client/dist/index.html'));
     });
 }
