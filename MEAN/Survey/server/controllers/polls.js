@@ -24,7 +24,7 @@ class PollsController {
                 poll.remove();
                 return res.json({ status: true });
             } else{
-                return res.josn({ status: 'access dined' })
+                return res.json({ status: 'access denied' })
             }
         })
     }

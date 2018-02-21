@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var fs = require("fs");
 
-mongoose.connect("mongodb://localhost/survey_db", {useMongoClient: true });
+mongoose.connect("mongodb://localhost/survey_db");
 mongoose.Promise = global.Promise;
 
 var models_path = __dirname + "/../models";
