@@ -35,6 +35,24 @@ class AnswerController {
             return res.json(answers)
         })
     }
+
+    likeAnswer(req, res){
+        Answer.findById(req.params.answer_id, (err, answer)=>{
+            if(err){
+                res.json(err);
+            }
+            console.log("nailed it" + answer)
+            answer.like ++;
+            answer.save((err)=>{
+                if(err){
+                    res.json(err);
+                }
+                return res.json(answer);
+            })
+        })
+    }
+
+
 }
 
 module.exports = new AnswerController();

@@ -19,6 +19,7 @@ module.exports = function(app){
     /********** ANSWER **********/
     app.post    ('/answer/:question_id',    Answer.createAnswer);
     app.get     ('/answer/:id',             Answer.showAnswer);
+    app.post    ('/answer/like/:answer_id', Answer.likeAnswer);
 
     app.all('*', ( req,res, next ) =>{
         res.sendFile(path.resolve('./client/dist/index.html'));
