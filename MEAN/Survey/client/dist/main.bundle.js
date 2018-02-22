@@ -34,6 +34,7 @@ var router_1 = __webpack_require__("../../../router/esm5/router.js");
 var login_component_1 = __webpack_require__("../../../../../src/app/login/login.component.ts");
 var poll_list_component_1 = __webpack_require__("../../../../../src/app/poll-list/poll-list.component.ts");
 var poll_new_component_1 = __webpack_require__("../../../../../src/app/poll-new/poll-new.component.ts");
+var poll_show_component_1 = __webpack_require__("../../../../../src/app/poll-show/poll-show.component.ts");
 var routes = [
     {
         path: '',
@@ -47,6 +48,10 @@ var routes = [
     {
         path: 'create',
         component: poll_new_component_1.PollNewComponent
+    },
+    {
+        path: 'poll/:id',
+        component: poll_show_component_1.PollShowComponent
     }
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -300,12 +305,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var http_1 = __webpack_require__("../../../http/esm5/http.js");
 var OptionService = /** @class */ (function () {
-    function OptionService() {
+    function OptionService(_http) {
+        this._http = _http;
     }
+    OptionService.prototype.update = function (id, callback) {
+        this._http.put("options/" + id + "/easy", {}).subscribe(function (res) { return callback(res.json()); }, function (err) { return console.log(err); });
+    };
     OptionService = __decorate([
         core_1.Injectable(),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [http_1.Http])
     ], OptionService);
     return OptionService;
 }());
@@ -335,7 +345,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/poll-list/poll-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h3>Dashboard</h3>\n<div>\n  <button (click)=\"logout()\" class=\"float-right\">Logout</button>\n  <button [routerLink]= \"['/create']\" class=\"float-right\">Add a new poll</button>\n</div>\n\n<p>\n    {{currentUser.name}}\n</p>\n\n\n\n\n<p>\n  {{ polls | json}}\n</p>"
+module.exports = "<h3>Dashboard</h3>\n<div>\n  <button (click)=\"logout()\" class=\"float-right\">Logout</button>\n  <button [routerLink]= \"['/create']\" class=\"float-right\">Add a new poll</button>\n</div>\n\n\n<!-- {{ polls | json}} -->\n\n\n<h2>Current Polls</h2>\n<table border=\"1px\">\n  <tr>\n    <th>User</th>\n    <th>Question</th>\n    <th>Date Posted</th>\n    <th>Actions</th>\n  </tr>\n  <tr *ngFor=\"let poll of polls\">\n    <td>{{ poll.user.name }}</td>\n    <td><a href [routerLink]=\"['/poll', poll._id]\">{{ poll.question }}</a></td>\n    <td>{{ poll.createdAt | date: \"short\" }}</td>\n    <td><button (click)=\"destroyPoll(poll._id)\" *ngIf=\"currentUser._id === poll.user._id\">Delete</button></td>\n  </tr>\n</table>"
 
 /***/ }),
 
@@ -367,17 +377,27 @@ var PollListComponent = /** @class */ (function () {
         this.currentUser = new user_1.User();
     }
     PollListComponent.prototype.ngOnInit = function () {
-        this.setCurrentUser();
-        this.getPolls();
+        this.setCurrentUser(); //      Gets users in session
+        this.getPolls(); //      Gets polls
+        console.log("my polls", this.polls);
+    };
+    PollListComponent.prototype.destroyPoll = function (id) {
+        var _this = this;
+        this._pollService.delete(id, function (res) {
+            if (res.status === true) {
+                _this.getPolls();
+            }
+        });
     };
     PollListComponent.prototype.setCurrentUser = function () {
-        this.currentUser = this._userService.getCurrentUser();
+        this.currentUser = this._userService.getCurrentUser(); // currentUser is set to equal the getCurrentUser method in the User Service 
         if (this.currentUser === null) {
-            this._router.navigateByUrl('/');
+            this._router.navigateByUrl('/'); // Route whoever is looking at the site to the home ('/') route
         }
     };
     PollListComponent.prototype.getPolls = function () {
         var _this = this;
+        console.log(this.polls);
         this._pollService.index(function (polls) { return _this.polls = polls; });
     };
     PollListComponent.prototype.logout = function () {
@@ -422,7 +442,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/poll-new/poll-new.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n    <button [routerLink]=\"['/dashboard']\">Cancel</button>\n  </div>\n  <div>\n    <h3>Put the question and options here:</h3>\n  </div>\n  <div>\n    <form (submit)=\"createPoll()\">\n      <div>\n        <label>Question</label>\n        <input type=\"text\" name=\"question\" [(ngModel)]=\"newPoll.question\">\n      </div>\n      <div>\n        <label>Option 1</label>\n        <input type=\"text\" name=\"option1\" [(ngModel)]=\"newPoll.option1.option\">\n      </div>\n      <div>\n        <label>Option 2</label>\n        <input type=\"text\" name=\"option2\" [(ngModel)]=\"newPoll.option2.option\">\n      </div>\n      <div>\n        <label>Option 3</label>\n        <input type=\"text\" name=\"option3\" [(ngModel)]=\"newPoll.option3.option\">\n      </div>\n      <div>\n        <label>Option 4</label>\n        <input type=\"text\" name=\"option4\" [(ngModel)]=\"newPoll.option4.option\">\n      </div>\n      <div>\n        <input type=\"submit\" name=\"submit\">\n      </div>\n      <div>\n        <p class=\"error\" *ngFor=\"let error of errors\">{{error}}</p>\n      </div>\n    </form>\n  </div>"
+module.exports = "<div>\n    <button [routerLink]=\"['/dashboard']\">Cancel</button>\n  </div>\n  <div>\n    <h3>Please input your question and options here:</h3>\n  </div>\n  <div>\n    <form (submit)=\"createPoll()\">\n      <div>\n        <label>Question</label>\n        <input type=\"text\" name=\"question\" [(ngModel)]=\"newPoll.question\">\n      </div>\n      <div>\n        <label>Option 1</label>\n        <input type=\"text\" name=\"option1\" [(ngModel)]=\"newPoll.option1.option\">\n      </div>\n      <div>\n        <label>Option 2</label>\n        <input type=\"text\" name=\"option2\" [(ngModel)]=\"newPoll.option2.option\">\n      </div>\n      <div>\n        <label>Option 3</label>\n        <input type=\"text\" name=\"option3\" [(ngModel)]=\"newPoll.option3.option\">\n      </div>\n      <div>\n        <label>Option 4</label>\n        <input type=\"text\" name=\"option4\" [(ngModel)]=\"newPoll.option4.option\">\n      </div>\n      <div>\n        <input type=\"submit\" name=\"submit\">\n      </div>\n      <div>\n        <p class=\"error\" *ngFor=\"let error of errors\">{{error}}</p>\n      </div>\n    </form>\n  </div>"
 
 /***/ }),
 
@@ -445,14 +465,25 @@ var core_1 = __webpack_require__("../../../core/esm5/core.js");
 var new_poll_1 = __webpack_require__("../../../../../src/app/new-poll.ts");
 var poll_service_1 = __webpack_require__("../../../../../src/app/poll.service.ts");
 var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var user_1 = __webpack_require__("../../../../../src/app/user.ts");
+var user_service_1 = __webpack_require__("../../../../../src/app/user.service.ts");
 var PollNewComponent = /** @class */ (function () {
-    function PollNewComponent(_pollService, _router) {
+    function PollNewComponent(_pollService, _router, _userService) {
         this._pollService = _pollService;
         this._router = _router;
+        this._userService = _userService;
         this.newPoll = new new_poll_1.NewPoll();
         this.errors = [];
+        this.currentUser = new user_1.User();
     }
     PollNewComponent.prototype.ngOnInit = function () {
+        this.setCurrentUser; // Keeps/Puts a user in session
+    };
+    PollNewComponent.prototype.setCurrentUser = function () {
+        this.currentUser = this._userService.getCurrentUser(); // currentUser is set to equal the getCurrentUser method in the User Service 
+        if (this.currentUser === null) {
+            this._router.navigateByUrl('/'); // Route whoever is looking at the site to the home ('/') route
+        }
     };
     PollNewComponent.prototype.createPoll = function () {
         var _this = this;
@@ -483,7 +514,8 @@ var PollNewComponent = /** @class */ (function () {
             styles: [__webpack_require__("../../../../../src/app/poll-new/poll-new.component.css")]
         }),
         __metadata("design:paramtypes", [poll_service_1.PollService,
-            router_1.Router])
+            router_1.Router,
+            user_service_1.UserService])
     ], PollNewComponent);
     return PollNewComponent;
 }());
@@ -513,7 +545,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/poll-show/poll-show.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  poll-show works!\n</p>\n"
+module.exports = "<div>\n  <button [routerLink]=\"['/dashboard']\">Go to Polls</button>\n</div>\n\n<h2>{{ poll.question }}</h2>\n<p>Click the Vote button to choose one</p>\n<table border=\"1px\">\n  <tr>\n    <th>Option</th>\n    <th>Votes</th>\n    <th>Action</th>\n  </tr>\n  <tr *ngFor=\"let option of poll.options\">\n    <td>{{ option.option }}</td>\n    <td>{{ option.vote }}</td>\n    <td><button (click)=\"update(option._id)\">Vote</button></td>\n  </tr>\n</table>"
 
 /***/ }),
 
@@ -533,10 +565,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var user_service_1 = __webpack_require__("../../../../../src/app/user.service.ts");
+var poll_service_1 = __webpack_require__("../../../../../src/app/poll.service.ts");
+var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var user_1 = __webpack_require__("../../../../../src/app/user.ts");
+var poll_1 = __webpack_require__("../../../../../src/app/poll.ts");
+var option_service_1 = __webpack_require__("../../../../../src/app/option.service.ts");
 var PollShowComponent = /** @class */ (function () {
-    function PollShowComponent() {
+    function PollShowComponent(_userService, _pollService, _optionService, _route, _router) {
+        this._userService = _userService;
+        this._pollService = _pollService;
+        this._optionService = _optionService;
+        this._route = _route;
+        this._router = _router;
+        this.poll = new poll_1.Poll(); // Instantiate the poll for it to receive likes
+        this.currentUser = new user_1.User();
     }
     PollShowComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.setCurrentUser();
+        this.subscription = this._route.params.subscribe(function (params) { return _this.poll_id = params.id; });
+        // console.log(this.poll_id);
+        this.getPoll();
+    };
+    PollShowComponent.prototype.ngOnDestroy = function () {
+        this.subscription.unsubscribe();
+    };
+    PollShowComponent.prototype.setCurrentUser = function () {
+        this.currentUser = this._userService.getCurrentUser(); // currentUser is set to equal the getCurrentUser method in the User Service 
+        if (this.currentUser === null) {
+            this._router.navigateByUrl('/'); // Route whoever is looking at the site to the home ('/') route
+        }
+    };
+    PollShowComponent.prototype.getPoll = function () {
+        var _this = this;
+        this._pollService.show(this.poll_id, function (poll) { return _this.poll = poll; });
+    };
+    PollShowComponent.prototype.update = function (option_id) {
+        var _this = this;
+        this._optionService.update(option_id, function (res) { return _this.getPoll(); });
     };
     PollShowComponent = __decorate([
         core_1.Component({
@@ -544,7 +611,11 @@ var PollShowComponent = /** @class */ (function () {
             template: __webpack_require__("../../../../../src/app/poll-show/poll-show.component.html"),
             styles: [__webpack_require__("../../../../../src/app/poll-show/poll-show.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [user_service_1.UserService,
+            poll_service_1.PollService,
+            option_service_1.OptionService,
+            router_1.ActivatedRoute,
+            router_1.Router])
     ], PollShowComponent);
     return PollShowComponent;
 }());
@@ -581,10 +652,16 @@ var PollService = /** @class */ (function () {
         this._http.post('/polls', newPoll).subscribe(function (res) { return callback(res.json()); }, function (err) { return console.log(err); });
     };
     PollService.prototype.show = function (id, callback) {
-        this._http.get("/polls/" + id).subscribe(function (res) { return callback(res.json()); }, function (err) { return console.log(err); });
+        this._http.get("/polls/" + id).subscribe(// get poll by id 
+        function (// get poll by id 
+            res) { return callback(res.json()); }, // send back the data
+        function (// send back the data
+            err) { return console.log(err); });
     };
     PollService.prototype.delete = function (id, callback) {
-        this._http.delete("/polls/" + id).subscribe(function (res) { return callback(res.json()); }, function (err) { return console.log(err); });
+        this._http.delete("/polls/" + id).subscribe(// get poll by id 
+        function (// get poll by id 
+            res) { return callback(res.json()); }, function (err) { return console.log(err); });
     };
     PollService = __decorate([
         core_1.Injectable(),
@@ -593,6 +670,22 @@ var PollService = /** @class */ (function () {
     return PollService;
 }());
 exports.PollService = PollService;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/poll.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Poll = /** @class */ (function () {
+    function Poll() {
+    }
+    return Poll;
+}());
+exports.Poll = Poll;
 
 
 /***/ }),
@@ -620,7 +713,7 @@ var UserService = /** @class */ (function () {
         this.currentUser = null;
     }
     UserService.prototype.getCurrentUser = function () {
-        return this.currentUser;
+        return this.currentUser; //
     };
     UserService.prototype.create = function (newUser, callback) {
         var _this = this;

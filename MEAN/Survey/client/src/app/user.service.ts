@@ -11,8 +11,8 @@ export class UserService {
     private _http: Http
   ) { }
 
-  getCurrentUser() {
-    return this.currentUser;
+  getCurrentUser() {                                            // Communicates with poll list componenet to get user in service
+    return this.currentUser;                                    //
   }
 
   create(newUser: User, callback){

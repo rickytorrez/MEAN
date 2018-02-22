@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NewPoll } from '../new-poll';
 import { PollService } from '../poll.service';
 import { Router } from '@angular/router';
+import { User } from '../user';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-poll-new',
@@ -12,13 +14,24 @@ export class PollNewComponent implements OnInit {
 
   newPoll: NewPoll = new NewPoll();
   errors: string[] = [];
+  currentUser: User = new User();
   
   constructor(
     private _pollService: PollService,
-    private _router: Router
+    private _router: Router,
+    private _userService: UserService
+
   ) { }
 
   ngOnInit() {
+    this.setCurrentUser                                                   // Keeps/Puts a user in session
+  }
+
+  setCurrentUser() {                                                      // Function to get user in session
+    this.currentUser = this._userService.getCurrentUser();                // currentUser is set to equal the getCurrentUser method in the User Service 
+    if(this.currentUser === null){                                        // If there is no user in session
+      this._router.navigateByUrl('/');                                    // Route whoever is looking at the site to the home ('/') route
+    }
   }
 
   createPoll(){

@@ -3,8 +3,8 @@ const mongoose      = require('mongoose');
 const PollSchema    = new mongoose.Schema({
     question: {
         type: String,
-        required: [true, "Question myst be at leart 10 characters"],
-        minlength: [10, "Question myst be at leart 10 characters"]
+        required: [true, "Question must be at leart 10 characters"],
+        minlength: [10, "Question must be at leart 10 characters"]
     },
     options: [{
         type: mongoose.Schema.Types.ObjectId,

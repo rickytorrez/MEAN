@@ -11,7 +11,7 @@ app.use(express.static(__dirname + "/client/dist"));
 var bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(session({
-    secret: "funtime",
+    secret: "eduardobaik",
     resave: false,
     saveUnintialized: true
 }))

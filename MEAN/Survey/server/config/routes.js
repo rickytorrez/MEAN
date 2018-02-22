@@ -15,7 +15,7 @@ module.exports = function(app){
     app.delete  ('/polls/:id',          Polls.destroy);
 
     app.get     ('/options/:id',        Options.show);
-    app.put     ('/options/:id',        Options.update);
+    app.put     ('/options/:id',        Options.update);                //Not fully functional
     app.put     ('/options/:id/easy',   Options.updateEasy);
 
     app.all     ('*', (req, res, next)=>{

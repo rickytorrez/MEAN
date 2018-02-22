@@ -16,26 +16,37 @@ export class PollListComponent implements OnInit {
   polls: Poll[];
 
   constructor(
-    private _userService: UserService,
-    private _router: Router,
-    private _pollService: PollService
+    private _userService:   UserService,
+    private _router:        Router,
+    private _pollService:   PollService
   ) { }
 
-  ngOnInit() {
-    this.setCurrentUser();
-    this.getPolls();
+  ngOnInit() {                                                            // Gets methods as page loads
+    this.setCurrentUser();                                                //      Gets users in session
+    this.getPolls();                                                      //      Gets polls
+    console.log("my polls", this.polls);
   }
 
-  setCurrentUser() {
-    this.currentUser = this._userService.getCurrentUser();
-    if(this.currentUser === null){
-      this._router.navigateByUrl('/');
+  destroyPoll(id: string){
+    this._pollService.delete(id, (res)=>{
+      if(res.status === true){
+        this.getPolls();
+      }
+    });
+  }
+
+
+  setCurrentUser() {                                                      // Function to get user in session
+    this.currentUser = this._userService.getCurrentUser();                // currentUser is set to equal the getCurrentUser method in the User Service 
+    if(this.currentUser === null){                                        // If there is no user in session
+      this._router.navigateByUrl('/');                                    // Route whoever is looking at the site to the home ('/') route
     }
   }
 
   getPolls() {
+    console.log(this.polls);
     this._pollService.index((polls) => this.polls = polls);
-  }
+  } 
 
   logout(){
     this._userService.logout(res => this._router.navigateByUrl('/'));

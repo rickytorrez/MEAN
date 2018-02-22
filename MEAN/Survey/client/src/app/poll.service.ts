@@ -24,15 +24,15 @@ export class PollService {
     );
   }
 
-  show(id:string, callback){
-    this._http.get(`/polls/${id}`).subscribe(
-      res => callback(res.json()),
-      err => console.log(err) 
+  show(id:string, callback){                                      // id being passed
+    this._http.get(`/polls/${id}`).subscribe(                     // get poll by id 
+      res => callback(res.json()),                                // send back the data
+      err => console.log(err)                                     
     );
   }
 
-  delete(id:string, callback){
-    this._http.delete(`/polls/${id}`).subscribe(
+  delete(id:string, callback){                                    // id being passed
+    this._http.delete(`/polls/${id}`).subscribe(                  // get poll by id 
       res => callback(res.json()),
       err => console.log(err) 
     );

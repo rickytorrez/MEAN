@@ -4,4 +4,5 @@ export class Poll {
     options     : any[];
     createdAt   : any;
     updatedAt   : any;
+    user        : any;
 }

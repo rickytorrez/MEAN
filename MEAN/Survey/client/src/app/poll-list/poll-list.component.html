@@ -4,13 +4,22 @@
   <button [routerLink]= "['/create']" class="float-right">Add a new poll</button>
 </div>
 
-<p>
-    {{currentUser.name}}
-</p>
+
+<!-- {{ polls | json}} -->
 
 
-
-
-<p>
-  {{ polls | json}}
-</p>
+<h2>Current Polls</h2>
+<table border="1px">
+  <tr>
+    <th>User</th>
+    <th>Question</th>
+    <th>Date Posted</th>
+    <th>Actions</th>
+  </tr>
+  <tr *ngFor="let poll of polls">
+    <td>{{ poll.user.name }}</td>
+    <td><a href [routerLink]="['/poll', poll._id]">{{ poll.question }}</a></td>
+    <td>{{ poll.createdAt | date: "short" }}</td>
+    <td><button (click)="destroyPoll(poll._id)" *ngIf="currentUser._id === poll.user._id">Delete</button></td>
+  </tr>
+</table>
