@@ -1,10 +1,16 @@
 <div>
-  <h4>Provide an answer</h4>
+    <div class="right"><button (click)="logout()">Log Out</button></div>
+    <button [routerLink]="['/questions']">Show Questions</button>
+  </div>
+
+
+<div>
+  <h4>Please provide an answer</h4>
   <form (submit)="createAnswer()">
-    <label>Answer</label>
-    <input type="text" name="answer" [(ngModel)]="answer.answer">
-    <label>Detail</label>
-    <input type="text" name="detail" [(ngModel)]="answer.detail">
+    <label>Answer:</label>
+    <input type="text" name="answer" [(ngModel)]="answer.answer"><br>
+    <label>Supporting Details: (Optional)</label>
+    <input type="text" name="detail" [(ngModel)]="answer.detail"><br>
     <input type="submit" value="Post">
   </form>
 </div>
