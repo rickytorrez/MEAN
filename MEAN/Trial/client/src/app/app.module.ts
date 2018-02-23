@@ -17,6 +17,7 @@ import { LoginComponent } from './user/login/login.component';
 import { ShowComponent } from './question/show/show.component';
 import { AnswerComponent } from './answer/answer.component';
 import { SearchQPipe } from './server/controllers/search.pipe';
+import { OrderModule } from 'ngx-order-pipe';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { SearchQPipe } from './server/controllers/search.pipe';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    OrderModule
   ],
   providers: [
     UserService,

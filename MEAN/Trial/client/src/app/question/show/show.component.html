@@ -14,7 +14,7 @@
       <th>Likes</th>
       <th>Action</th>
     </tr> 
-    <tr *ngFor="let x of question._answer">
+    <tr *ngFor="let x of question._answer | orderBy:'like':true  ">
       <td>{{ x.answer }}</td>
       <td>{{ x.detail }}</td>
       <td>{{ x._user.name }}</td>

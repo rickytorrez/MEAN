@@ -12,12 +12,14 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './show.component.html',
   styleUrls: ['./show.component.css']
 })
+
 export class ShowComponent implements OnInit {
 
   question: Question = new Question();
   currentUser: User = new User();
   subscription: Subscription;
   question_id: string;
+  answers;
 
   constructor(
     private _userService: UserService,
@@ -45,6 +47,7 @@ export class ShowComponent implements OnInit {
     });
   }
 
+  
   getQuestion(){
     console.log("Q-ID: ", this.question_id )
     this._questionService.showOne(this.question_id, question => this.question = question);
@@ -57,6 +60,5 @@ export class ShowComponent implements OnInit {
   logout(){
     this._userService.logout(res => this._router.navigateByUrl('/'));
   }
-
 
 }
