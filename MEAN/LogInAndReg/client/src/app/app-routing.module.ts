@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     component: LoginComponent,
-    children: []
+    // children: []
   },
   {
     path: 'dashboard',

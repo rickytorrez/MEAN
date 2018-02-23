@@ -11,8 +11,8 @@ import { DashboardComponent } from './User/dashboard/dashboard.component';
 import { UserService } from './server/controllers/user.service';
 import { QuestionComponent } from './question/question.component';
 import { AnswerComponent } from './answer/answer.component';
-// import { CreateComponent } from './src/app/question/create/create.component';
 import { DisplayComponent } from './question/display/display.component';
+import { CreateComponent } from './question/create/create.component';
 
 @NgModule({
   declarations: [
@@ -22,8 +22,8 @@ import { DisplayComponent } from './question/display/display.component';
     DashboardComponent,
     QuestionComponent,
     AnswerComponent,
-    // CreateComponent,
-    DisplayComponent
+    DisplayComponent,
+    CreateComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +32,7 @@ import { DisplayComponent } from './question/display/display.component';
     HttpModule
   ],
   providers: [
-    UserService
+    UserService         
   ],
   bootstrap: [AppComponent]
 })

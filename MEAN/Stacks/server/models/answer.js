@@ -3,6 +3,7 @@ const mongoose      = require('mongoose');
 var AnswerSchema    = new mongoose.Schema({
     answer: {
         type: String,
+        minlength: [5, "Answer should be more than five characters long"],
         required: [true, "Please provide an answer"]
     },
     like: {

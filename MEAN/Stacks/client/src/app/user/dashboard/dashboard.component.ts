@@ -37,22 +37,3 @@ export class DashboardComponent implements OnInit {
   }
 
 }
-  
-//   this._userService.session((res) =>{
-//     if(res.errors){
-//       this._router.navigate(["/"]);
-//     }else{
-//       this.currentUser = res;
-//     }
-//   })
-
-// }
-
-
-    // this._userService.session((res) => {
-    //   if (res.status === false){
-    //     this._router.navigateByUrl('/');
-    //   } else {
-    //     this.currentUser = res;
-    //   }
-    // });

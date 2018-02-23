@@ -3,6 +3,7 @@ const mongoose  = require('mongoose');
 let QuestionSchema = new mongoose.Schema({
     question: {
         type: String,
+        minlength: [10, "Your question must be longer than 10 characters."],
         required: [true, "Please provide a question"]
     },
     _user: {

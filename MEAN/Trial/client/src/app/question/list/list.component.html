@@ -1,0 +1,29 @@
+<div>
+    <br>
+    <label>Search:</label>
+    <input [(ngModel)]="searchText">
+</div>
+<br>
+<div>
+  <button (click)="logout()">Log Out</button>
+  <button [routerLink]="['/add']">Add a Concern</button>
+</div>
+<br>
+<br>
+<br>
+<table>
+  <tr>
+    <th>Concern</th>
+    <th>Answer</th>
+    <th>Actions</th>
+  </tr>
+  <tr *ngFor="let question of questions | filter : searchText">
+    <td>{{ question.question }}</td>
+    <td>{{ question._answer.length }}</td>
+      <td>
+      <button><a href [routerLink]="['/questions', question._id]">Show</a></button>
+      <!-- <button><a href [routerLink]="['/answer', answer._id]">Answer</a></button>    -->
+      </td>
+  </tr>
+</table>
+

@@ -1,0 +1,16 @@
+
+{{ currentUser._id }}
+<div>
+  <button (click)="logout()">Log Out</button>
+  <button [routerLink]="['/questions']">Show Concerns</button>
+</div>
+
+<h3>Add a concern:</h3>
+<form (submit)="createQuestion()">
+  <label>Concern</label>
+  <input type="text" name="question" [(ngModel)]="question.question" >
+  <input type="submit" value="Post!">
+    <div>
+      <p class="error" *ngFor="let error of errors">{{error}}</p>
+    </div>
+</form>
