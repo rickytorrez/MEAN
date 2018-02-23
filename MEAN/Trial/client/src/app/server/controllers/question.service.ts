@@ -26,7 +26,7 @@ export class QuestionService {
 
   showOne(id: string, callback){
     console.log("id is hereee ", id);
-    this._http.get(`/question/${id}`).subscribe(
+    this._http.get(`/question/${id}`, {}).subscribe(
       res => callback(res.json()),
       err => console.log(err)
     )

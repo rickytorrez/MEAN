@@ -25,7 +25,7 @@ const routes: Routes = [
     component: CreateComponent
   },
   {
-    path: 'answer',
+    path: 'answers/:id',
     component: AnswerComponent
   }
 ];

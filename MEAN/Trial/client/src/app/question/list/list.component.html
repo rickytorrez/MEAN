@@ -22,8 +22,10 @@
     <td>{{ question._answer.length }}</td>
       <td>
       <button><a href [routerLink]="['/questions', question._id]">Show</a></button>
-      <!-- <button><a href [routerLink]="['/answer', answer._id]">Answer</a></button>    -->
+      <button><a href [routerLink]="['/answers', question._id]"> Answer</a></button>   
       </td>
   </tr>
+
+  
 </table>
 

@@ -1,3 +1,10 @@
-<p>
-  answer works!
-</p>
+<div>
+  <h4>Provide an answer</h4>
+  <form (submit)="createAnswer()">
+    <label>Answer</label>
+    <input type="text" name="answer" [(ngModel)]="answer.answer">
+    <label>Detail</label>
+    <input type="text" name="detail" [(ngModel)]="answer.detail">
+    <input type="submit" value="Post">
+  </form>
+</div>

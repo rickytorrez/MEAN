@@ -6,6 +6,9 @@ var AnswerSchema    = new mongoose.Schema({
         minlength: [5, "Answer should be more than five characters long"],
         required: [true, "Please provide an answer"]
     },
+    detail: {
+        type: String
+    },
     like: {
         type: Number,
         default: 0
