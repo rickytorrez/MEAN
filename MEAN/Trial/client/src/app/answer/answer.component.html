@@ -3,14 +3,24 @@
     <button [routerLink]="['/questions']">Show Questions</button>
   </div>
 
+  <!-- {{ question.question }} -->
 
-<div>
-  <h4>Please provide an answer</h4>
-  <form (submit)="createAnswer()">
-    <label>Answer:</label>
-    <input type="text" name="answer" [(ngModel)]="answer.answer"><br>
-    <label>Supporting Details: (Optional)</label>
-    <input type="text" name="detail" [(ngModel)]="answer.detail"><br>
-    <input type="submit" value="Post">
-  </form>
-</div>
+<br>
+  <div>
+      <h3>Share your knowledge, provide an answer</h3>
+  </div>
+
+  <div>
+      <form (submit)="createAnswer()">
+        <label> Answer </label><br>
+        <div *ngIf="aNd.invalid && (aNd.dirty || aNd.touched)">
+            <p *ngIf="aNd.errors.minlength && !aNd.errors.required" style="color: black;">Answers must me at least 5 characters</p>
+          </div>
+        <input type="text" name="answer" required minlength="5" [(ngModel)]="answer.answer" id="answer" #aNd="ngModel"><br>
+        <label> Details you'd like to share </label><br>
+        <input type="text" name="detail" [(ngModel)]="answer.detail"><br>
+        <div *ngIf="aNd.valid">
+            <input type="submit" value="Submit">
+        </div>
+      </form>
+  </div>

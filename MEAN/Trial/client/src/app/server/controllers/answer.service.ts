@@ -10,9 +10,16 @@ export class AnswerService {
     private _http: Http
   ) { }
 
-  createAnswer(answer: Answer, question_id){
-    return this._http.post(`/answer/${question_id}`, answer)
+////******************* WORKING CODE ********************/////
+//   createAnswer(answer: Answer, question_id){
+//     return this._http.post(`/answer/${question_id}`, answer)
+//   }
+// }
+////*************** END OF WORKING CODE ****************/////
+
+
+  createAnswer(answer: Answer, question_id, ){
+    console.log("Hitting the anser service ", question_id, answer)
+    return this._http.post(`/answer/${question_id}`, answer);
   }
 }
-
-

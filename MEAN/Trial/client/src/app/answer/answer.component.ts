@@ -16,10 +16,8 @@ import { Subscription } from 'rxjs/Subscription';
 export class AnswerComponent implements OnInit {
 
   newAnswer: Answer = new Answer();
-  // currentUser: User = new User();
   errors: string [] = [];
   answer: Answer;
-  // question_id: string;
   subscription: Subscription;
   question: Question = new Question;
   question_id;
@@ -36,28 +34,36 @@ export class AnswerComponent implements OnInit {
   }
 x
   ngOnInit() {
-    // this.setCurrentUser()
     this._route.params.subscribe(params => this.question_id = params.id)
   }
 
-  // setCurrentUser(){
-  //   this._userService.getCurrentUser().subscribe(
-  //     res=>{
-  //       console.log("this is our user online: ", this.currentUser);
-  //       if(this.currentUser._id === null){
-  //         this._router.navigateByUrl('/');
-  //       }
-  //       return this.currentUser = res.json();
-  //   });
+  ////******************* ALTERNATIVE CODE ********************/////
+  // createAnswer(){
+  //   console.log("hitting answer button @ component");
+  //   this.errors = [];
+  //   this._answerService.createAnswer(this.answer, this.question_id).subscribe(
+  //     res => res.json(),
+  //     // this._router.navigateByUrl('/questions'),
+  //     error => console.log(error)
+  //   )
   // }
+  ////*************** END OF ALTERNATIVE CODE ****************/////
 
-  createAnswer(){
-    console.log("hitting answer button @ component");
-    this.errors = [];
-    this._answerService.createAnswer(this.answer, this.question_id).subscribe(
-      res => res.json(),
-      error => console.log(error)
+  createAnswer(){   
+    this._answerService.createAnswer(this.answer, this.question_id ).subscribe(
+      (res) => {
+        console.log(res.json())
+        this._router.navigateByUrl('/questions')
+      }
     )
   }
 
+  logout(){
+    this._userService.logout(res => this._router.navigateByUrl('/'));
+  }
+
+
+
+
+  
 }
