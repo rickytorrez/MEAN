@@ -1,14 +1,14 @@
-
-{{ currentUser._id }}
 <div>
-  <button (click)="logout()">Log Out</button>
-  <button [routerLink]="['/questions']">Show Concerns</button>
+  <div class="right"><button (click)="logout()">Log Out</button></div>
+  <button [routerLink]="['/questions']">Show Questions</button>
 </div>
 
-<h3>Add a concern:</h3>
+<h3>Add a Question:</h3>
 <form (submit)="createQuestion()">
-  <label>Concern</label>
-  <input type="text" name="question" [(ngModel)]="question.question" >
+  <label>Question:</label>
+  <input type="text" name="question" [(ngModel)]="question.question" ><br>
+  <label>Description: (optional)</label>
+  <input type="text" name="description" [(ngModel)]="question.description" ><br>
   <input type="submit" value="Post!">
     <div>
       <p class="error" *ngFor="let error of errors">{{error}}</p>

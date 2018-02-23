@@ -1,15 +1,15 @@
 <div>
-    <button (click)="logout()">Log Out</button>
-    <button [routerLink]="['/questions']">Show Concerns</button>
-  </div>
+  <div class="right"><button (click)="logout()">Log Out</button></div>
+  <button [routerLink]="['/questions']">Show Questions</button>
+</div>
 
   <h3>{{ question.question }}</h3>
   <h5>{{ question.description }}</h5>
-  <table>
+  <table border="1px">
     <tr>
       <th>Answer</th>
-      <th>Comment by</th>
-      <th>Like</th>
+      <th>Provided by</th>
+      <th>Likes</th>
       <th>Action</th>
     </tr>
     <tr *ngFor="let x of question._answer">
