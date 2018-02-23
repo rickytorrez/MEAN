@@ -32,9 +32,10 @@ export class AnswerComponent implements OnInit {
     this.answer = new Answer;
     this._answerService = _answerService;
   }
-x
+
   ngOnInit() {
     this._route.params.subscribe(params => this.question_id = params.id)
+    this.getQuestion()
   }
 
   ////******************* ALTERNATIVE CODE ********************/////
@@ -56,6 +57,11 @@ x
         this._router.navigateByUrl('/questions')
       }
     )
+  }
+
+  getQuestion(){
+    console.log("Q-ID: ", this.question_id )
+    this._questionService.showOne(this.question_id, question => this.question = question);
   }
 
   logout(){

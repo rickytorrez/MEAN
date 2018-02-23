@@ -1,6 +1,7 @@
 <div>
   <div class="right"><button (click)="logout()">Log Out</button></div>
   <button [routerLink]="['/questions']">Show Questions</button>
+  <button [routerLink]="['/answers', question._id]"> Answer this Question</button>
 </div>
 
   <h3>{{ question.question }}</h3>

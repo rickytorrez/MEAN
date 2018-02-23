@@ -49,4 +49,8 @@ export class CreateComponent implements OnInit {
       }
     })
   }
+  
+  logout(){
+    this._userService.logout(res => this._router.navigateByUrl('/'));
+  }
 }

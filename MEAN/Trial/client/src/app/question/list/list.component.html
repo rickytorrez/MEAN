@@ -23,8 +23,8 @@
     <td>{{ question.question }}</td>
     <td>{{ question._answer.length }}</td>
       <td>
-      <button><a href [routerLink]="['/questions', question._id]">Show</a></button>
-      <button><a href [routerLink]="['/answers', question._id]"> Got an answer?</a></button>   
+      <button [routerLink]="['/questions', question._id]">Show</button>
+      <button [routerLink]="['/answers', question._id]"> Got an answer?</button>   
       </td>
   </tr>
 
