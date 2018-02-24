@@ -1,8 +1,0 @@
-<h3>You got questions, the DOJO has answers</h3>
-<div>
-  <form (submit)="createUser()">
-    <input type="text" name="name"  placeholder="Your Name?" [(ngModel)]="newUser.name">
-    <input type="submit" value="Login!">
-  </form>
-  <p *ngFor= "let error of errors">{{ error }}</p>
-</div>
