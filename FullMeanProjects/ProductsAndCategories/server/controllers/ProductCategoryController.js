@@ -1,7 +1,7 @@
 var mongoose    = require('mongoose');
 var ProductCategory     = mongoose.model('ProductCategory');
 
-class ProductCategory{
+class ProductCategoryController{
     all (req, res){
         ProductCategory.find({})
         .populate ({
