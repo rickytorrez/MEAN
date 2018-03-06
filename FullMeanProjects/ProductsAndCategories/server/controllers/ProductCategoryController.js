@@ -1,5 +1,6 @@
-var mongoose    = require('mongoose');
+var mongoose            = require('mongoose');
 var ProductCategory     = mongoose.model('ProductCategory');
+
 
 class ProductCategoryController{
     all (req, res){
