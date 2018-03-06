@@ -44,7 +44,55 @@ export class DashComponent implements OnInit {
       product: ""
     };
 
+    this._ps.all((data)=>{
+      this.products = data;                                             // Assign a variable so you can loop through it 
+    });
 
+    this._cs.all((data)=>{
+      this.categories = data;                                           // Assign a variable to loop through it on the html
+    });
+
+    this._procat.all((data) => {
+      this.procats = data;
+    })
+
+  }
+
+  createProduct(){
+    this._ps.create(this.product, (data) => {
+      if(data.errors){
+        console.log(data.errors);
+      } else {
+        // this.products.push(data);
+        this.product = {title: ""};
+      }
+    });
+  }
+
+  createCategory(){
+    this._cs.create(this.category, (data) => {
+      if(data.errors){
+        console.log(data.errors);
+      } else {
+        // this.categories.push(data);
+        this.category = {title: ""};
+      }
+    });
+  }
+
+  createProCat(){
+    this._procat.create(this.procat, (data)=>{
+      if(data.errors){
+        console.log(data.errors);
+      } else{
+        // this.procats.push(data);
+
+        this.procat = {
+          category: "",
+          product: ""
+        };
+      }
+    });
   }
 
 }

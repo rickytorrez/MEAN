@@ -14,14 +14,28 @@
 
 
 <h2>Join:</h2>
+
+{{ procat | json }}
 <form (submit)="createProCat()">
-  <select name="procat.category">
-    <!-- <option *ngfor="let item of list"></option> -->
+  <select name="procat.category" [(ngModel)]="procat.category">
+    <option value="{{ cat._id }}" *ngFor="let cat of categories">{{ cat.title }}</option>
   </select>
 
-  <select name="procat.product">
-    <!-- <option *ngfor="let item of list"></option> -->
+  <select name="procat.product" [(ngModel)]="procat.product">
+    <option value="{{ prod._id }}"*ngFor="let prod of products">{{ prod.title }}</option>
   </select>
 
   <input type="submit" value="join">
 </form>
+<br>
+<br>
+<table border="1px">
+  <tr>
+    <th>Category</th>
+    <th>Product</th>
+  </tr>
+  <tr *ngFor="let xyz of procats">
+    <td>{{ xyz.category.title }}</td>
+    <td>{{ xyz.product.title }}</td>
+  </tr>
+</table>
