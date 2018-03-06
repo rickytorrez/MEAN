@@ -9,7 +9,9 @@ export class UserService {
   }
 
   create(user, cb){
-    this._http.post("/users", user)
+    console.log(user);
+    
+    this._http.post("/users/new", user)
     .subscribe(data => cb(data));
   }
 
@@ -18,8 +20,14 @@ export class UserService {
     .subscribe(data => cb(data));
   }
 
-  session(){
+  session(cb){
     this._http.get("/session")
+    .subscribe(data => cb(data));
+  }
+
+  logout(){
+    this._http.get("/logout")
+    .subscribe();
   }
 
 }

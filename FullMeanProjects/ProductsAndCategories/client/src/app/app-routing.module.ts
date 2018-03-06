@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UserComponent } from './user/user.component';
+import { DashComponent } from './dash/dash.component';
 
 const routes: Routes = [
-    {path: "", component: UserComponent},
-    {path: "**", redirectTo: ""}                // Takes us back to home route 
+    {path: "", component: DashComponent},
+    {path: "register", component: UserComponent},
+    {path: "**", redirectTo: "/register"}                // Takes us back to home route 
 ];
 
 @NgModule({
@@ -12,3 +14,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+ 

@@ -1,3 +1,23 @@
-<p>
-  user works!
-</p>
+<h2>Register</h2>
+
+{{ user | json }}
+
+<form (submit)="register()">
+  <label>Email</label><br>
+  <input type="text" name="user.email" [(ngModel)]="user.email"><br>
+  <label>Password</label><br>
+  <input type="password" name="user.password" [(ngModel)]="user.password"><br>
+  <input type="submit" value="Register">
+</form>
+
+<h2>Login</h2>
+
+{{ loggedIn | json }}
+
+<form (submit)="login()">
+  <label>Email</label><br>
+  <input type="text" name="loggedIn.email" [(ngModel)]="loggedIn.email"><br>
+  <label>Password</label><br>
+  <input type="password" name="loggedIn.password" [(ngModel)]="loggedIn.password"><br>
+  <input type="submit" value="Login">
+</form>

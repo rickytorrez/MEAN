@@ -13,7 +13,7 @@ class UserController {
                     if(err){
                         return res.json({errors: newUser.errors});
                     } else {
-                        rqe.session.user_id = newUser._id;
+                        req.session.user_id = newUser._id;
                         return res.json(newUser);
                     }
                 });
