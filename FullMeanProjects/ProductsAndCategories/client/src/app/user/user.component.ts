@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../server/controllers/user.service';
 
 @Component({
   selector: 'app-user',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserComponent implements OnInit {
 
-  constructor() { }
+  private user : any;
+
+  constructor(private _us: UserService) {                                       //Dependency injection
+
+  }
 
   ngOnInit() {
+    this.user = {
+      email: "",                                                                // Initialize the user model instead of creating 
+      password: ""                                                              // a model file
+    };
   }
 
 }
