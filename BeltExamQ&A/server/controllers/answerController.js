@@ -11,7 +11,7 @@ class AnswerController {
             console.log(req.body,"ANSWER CONTENT SHOULD BE HERE");
             answer._user = req.session.user_id;
             answer._question = req.params.question_id;
-            console.log(question,"QUESTION SHOULD BE HERE");
+            // console.log(question,"QUESTION SHOULD BE HERE");
             question._answer.push(answer);
             answer.save((err)=>{
                 question.save((err)=>{

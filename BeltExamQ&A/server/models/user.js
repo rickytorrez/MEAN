@@ -4,7 +4,7 @@ var UserSchema      = new mongoose.Schema({
     name: {
         type: String,
         minlength: [3, "Your name should be longer than three characters"],
-        required: [true, "Please provide a name!"]
+        required: [true, "You must input a name!"]
     }
 }, {timestamps: true})
 
