@@ -22,10 +22,11 @@ mongoose.model("Listing", new mongoose.Schema({
         type: String,
     },
 
-    // // Foreign Key
-    user:[{
+    // Foreign Key
+    // ManyToOne, refers to the User Model, no need for an array
+    user:{
         type: ObjectId, 
-        ref="User"
-    }]
+        ref: "User"
+    }
 
 }, {timestamps: true}));

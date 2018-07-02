@@ -28,10 +28,11 @@ mongoose.model("User", new mongoose.Schema({
         minlength: 8
     },
 
-    // // Foreign Key
+    // Foreign Key
+    // Listing array since it's a one to many
     listings:[{
         type: ObjectId, 
-        ref="Listing"
+        ref: "Listing"
     }]
 
 }, {timestamps: true}));

@@ -10,8 +10,8 @@ let port = 8000;
 
 let app = express();
 
-require("./config/mongoose");
-require("./config/routes")(app);
+require("./config/mongoose.js");
+require("./config/routes.js")(app);
 
 
 app.listen(port, ()=>{
