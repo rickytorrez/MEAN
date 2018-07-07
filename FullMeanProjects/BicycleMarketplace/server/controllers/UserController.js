@@ -5,18 +5,22 @@ let bcrypt  = require("bcrypt");
 class UserController {
 
     register(req, res){
+        console.log("Refister route on =>UC<=")
 
-        // if email exists, change the email
-        User.findOne({email:req.body.email}, (err, user)=>{
+        // if email exists, provide a new email
+        User.findOne({ email:req.body.email }, (err, user)=>{
             
             // if user exists, return 404
             if(user){
                 return res.status(403).json({
                     message: "A user with this e-mail already exists.",
-                    errors: errs
+                    errors: err
                 });
             } else {
                 
+                // create new instance of a user
+                let user = new User(req.body);
+
                 // bcrypt the password input by user
                 bcrypt.hash(req.body.password, 8, function (err, hash){
                     if(err){
@@ -32,23 +36,23 @@ class UserController {
                         // if user with email doesn't exist, we'll let you create a user if no errors
                         user.save(errs=>{
                         
-                        // if any errors on validation
-                        if(errs){
-                            return res.status(403).json({
-                                message: "Failed to save user!",
-                                errors: errs
-                            });
-                        
-                        // We need to return a response to the front end
-                        } else {
+                            // if any errors on validation
+                            if(errs){
+                                return res.status(403).json({
+                                    message: "Failed to save user!",
+                                    errors: errs
+                                });
                             
-                            // before user is saved, store it in session
-                            req.session.uid = user._id;
-                            return res.status(200).json(user);
-                        }
-                    });
-                }
-            });    
+                            // We need to return a response to the front end
+                            } else {
+                                
+                                // before user is saved, store it in session
+                                req.session.uid = user._id;
+                                return res.status(200).json(user);
+                            }
+                        });
+                    }
+                });    
             }
         });
     }
